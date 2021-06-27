@@ -25,7 +25,7 @@ export class AuthenticationGuard implements CanActivate {
     | UrlTree {
       console.log('I am checking auth...');
     return this.auth
-      .isLoggedIn()
+      .isLoggedIn$()
       .pipe(map((isLoggedIn) => isLoggedIn || this.router.createUrlTree([''])));
   }
 }

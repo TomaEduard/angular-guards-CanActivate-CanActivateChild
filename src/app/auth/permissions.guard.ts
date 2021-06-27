@@ -20,6 +20,6 @@ export class PermissionsGuard implements CanActivateChild {
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
     console.log('I am checking permissions....');
-    return this.auth.hasPermissions();
+    return this.auth.hasPermissions$();
   }
 }

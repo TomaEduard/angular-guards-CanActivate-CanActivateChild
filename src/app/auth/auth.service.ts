@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 @Injectable({
@@ -8,10 +8,21 @@ import { delay } from 'rxjs/operators';
 export class AuthService {
   constructor() {}
 
-  isLoggedIn() {
+  private rol: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(['USER', 'ADMIN']);
+  public rol$: Observable<string[]> = this.rol.asObservable();
+
+  isLoggedIn$(value?: boolean) {
     return of(true).pipe(delay(500));
   }
-  hasPermissions() {
+
+  isManager$() {
+    return of(this.rol.getValue().includes('MANAGER'));
+  }
+
+  hasPermissions$() {
+    // return Observable base of JWT in LS and this.rol
     return of(true);
   }
+
+
 }
