@@ -1,8 +1,18 @@
 <mat-toolbar color="primary">
   <span>Routing Guards</span>
-  <a class="first-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true}" mat-button routerLink="/">Home</a>
-  <a mat-button routerLinkActive="active" routerLink="/admin">Admin</a>
+  <a 
+    class="first-link" 
+    routerLinkActive="active" 
+    [routerLinkActiveOptions]="{ exact: true}" 
+    mat-button 
+    routerLink="/"
+  >Home</a>
+
+  <a mat-button routerLinkActive="active" routerLink="/admin" [disabled]="!(auth.hasPermissions$() | async)">Admin</a>
+
+  <a mat-button routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true}" routerLink="/management" [disabled]="!(auth.isManager$() | async)">Management</a>
 </mat-toolbar>
+
 <main class="content">
   <router-outlet></router-outlet>
 </main>

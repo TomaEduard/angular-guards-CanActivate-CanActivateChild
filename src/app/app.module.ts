@@ -9,9 +9,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AdminModule } from './admin/admin.module';
 import { HomeModule } from './home/home.module';
+import {RouterModule} from '@angular/router';
+import { ManagementComponent } from './management/management.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ManagementComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,6 +23,7 @@ import { HomeModule } from './home/home.module';
     MatButtonModule,
     AdminModule,
     HomeModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent],
