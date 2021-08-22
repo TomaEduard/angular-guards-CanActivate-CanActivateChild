@@ -1,3 +1,4 @@
+import { FormGuardGuard } from './auth/form-guard.guard';
 import { ManagementComponent } from './management/management.component';
 import { ListComponent } from './admin/list/list.component';
 import { AddProductComponent } from './admin/add-product/add-product.component';
@@ -19,14 +20,15 @@ const routes: Routes = [
       {
         path: '',
         canActivateChild: [PermissionsGuard],
-        component: AddUserComponent,
         children: [
           {
             path: 'add-user',
+            canDeactivate: [FormGuardGuard],
             component: AddUserComponent,
           },
           {
             path: 'add-product',
+            canDeactivate: [FormGuardGuard],
             component: AddProductComponent,
           },
           { path: 'list', component: ListComponent },
