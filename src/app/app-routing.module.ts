@@ -19,6 +19,7 @@ const routes: Routes = [
       {
         path: '',
         canActivateChild: [PermissionsGuard],
+        component: AddUserComponent,
         children: [
           {
             path: 'add-user',
@@ -28,9 +29,9 @@ const routes: Routes = [
             path: 'add-product',
             component: AddProductComponent,
           },
+          { path: 'list', component: ListComponent },
         ],
       },
-      { path: 'list', component: ListComponent },
     ],
   },
   {

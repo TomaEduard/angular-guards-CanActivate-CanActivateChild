@@ -11,6 +11,10 @@ import { AdminModule } from './admin/admin.module';
 import { HomeModule } from './home/home.module';
 import {RouterModule} from '@angular/router';
 import { ManagementComponent } from './management/management.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [AppComponent, ManagementComponent],
@@ -23,7 +27,12 @@ import { ManagementComponent } from './management/management.component';
     MatButtonModule,
     AdminModule,
     HomeModule,
-    RouterModule
+    RouterModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent],

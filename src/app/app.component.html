@@ -8,9 +8,46 @@
     routerLink="/"
   >Home</a>
 
-  <a mat-button routerLinkActive="active" routerLink="/admin" [disabled]="!(auth.hasPermissions$() | async)">Admin</a>
+  <a 
+    mat-button 
+    routerLinkActive="active" 
+    routerLink="/admin" 
+    [disabled]="!(authService.hasPermissions$() | async)"
+  >For All</a>
 
-  <a mat-button routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true}" routerLink="/management" [disabled]="!(auth.isManager$() | async)">Management</a>
+  <a 
+    mat-button 
+    routerLinkActive="active" 
+    [routerLinkActiveOptions]="{ exact: true}" 
+    routerLink="/management" 
+    [disabled]="!(authService.isManager$() | async)"
+  >Management</a>
+
+  <div style="
+    margin-left: auto; 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
+
+    font-size: 13px;
+    column-gap: 10px;
+  ">
+    <p>Role: {{authService.getUserRolesAsString()}}</p>
+
+    <mat-form-field>
+      <mat-select 
+        [formControl]="roleForm" 
+        placeholder="Roles" 
+        multiple
+        (selectionChange)="setRole()"
+      >
+        <mat-option *ngFor="let role of roles" [value]="role">
+          {{role}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+  </div>
 </mat-toolbar>
 
 <main class="content">

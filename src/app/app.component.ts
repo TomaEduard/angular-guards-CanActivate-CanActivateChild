@@ -1,5 +1,11 @@
-import { AuthService } from './auth/auth.service';
+import { AuthService, Roles } from './auth/auth.service';
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+export interface Food {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -7,9 +13,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-router-guards-example';
+  roles: string[] = [];
+  roleForm: FormControl = new FormControl(this.authService.getUserRolesAsString());
 
-  constructor(public auth: AuthService) {
-    
+  constructor(public authService: AuthService) {
+    this.roles = this.authService.getAllRolesAsString();
   }
+
+  setRole() {
+    this.authService.setRol(this.roleForm.value)
+  }
+
+
 }

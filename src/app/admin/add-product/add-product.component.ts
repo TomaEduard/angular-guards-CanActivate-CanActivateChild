@@ -13,6 +13,7 @@ export class AddProductComponent implements OnInit {
       name: new FormControl(''),
       quantity: new FormControl(0),
     });
+    console.log('🎄', )
   }
 
   ngOnInit(): void {}

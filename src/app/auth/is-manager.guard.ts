@@ -18,9 +18,8 @@ export class IsManagerGuard implements CanActivate {
     | boolean
     | UrlTree {
       console.log('I am checking auth... I have not MANAGER role!');
-    return this.auth
-      .isManager$()
-      // pipe for redirect if user not have 'MANAGER' role
-      // .pipe(map((isManager) => isManager || this.router.createUrlTree([''])));
+    return this.auth.isManager$()
+    // pipe for redirect if user not have 'MANAGER' role
+    // .pipe(map((isManager) => isManager || this.router.createUrlTree([''])));
   }
 }
