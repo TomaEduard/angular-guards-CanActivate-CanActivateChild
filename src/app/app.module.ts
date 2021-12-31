@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { ApplicationRef, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,19 +22,21 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatDialogModule,
-    MatButtonModule,
-    AdminModule,
-    HomeModule,
     RouterModule,
-    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    HomeModule,
+
+    MatSelectModule,
     MatIconModule,
     MatAutocompleteModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+
+}

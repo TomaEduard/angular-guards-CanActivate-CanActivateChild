@@ -14,9 +14,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NoPermissionComponent } from './no-permission/no-permission.component';
+import { AdminRoutingModule } from './admin-routing.module';
 
 @NgModule({
-  declarations: [WelcomeComponent, AddUserComponent, AddProductComponent, ListComponent, ConfirmDialogComponent],
+  declarations: [
+    WelcomeComponent,
+    AddUserComponent,
+    AddProductComponent,
+    ListComponent,
+    ConfirmDialogComponent,
+    NoPermissionComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,7 +36,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatDialogModule
+    MatDialogModule,
+    AdminRoutingModule
   ],
 })
-export class AdminModule {}
+export class AdminModule { }

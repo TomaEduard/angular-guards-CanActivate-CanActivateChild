@@ -14,7 +14,12 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthenticationGuard implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) {}
+
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -23,9 +28,10 @@ export class AuthenticationGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-      console.log('I am checking auth...');
+      console.log('I am checking auth... AuthenticationGuard - canActivate', this.auth.isLoggedIn);
+
     return this.auth
-      .isLoggedIn$()
+      .isLoggedIn$
       .pipe(map((isLoggedIn) => isLoggedIn || this.router.createUrlTree([''])));
   }
 }

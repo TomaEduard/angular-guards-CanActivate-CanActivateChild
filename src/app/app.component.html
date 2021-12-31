@@ -1,26 +1,30 @@
 <mat-toolbar color="primary">
   <span>Routing Guards</span>
   <a 
-    class="first-link" 
-    routerLinkActive="active" 
-    [routerLinkActiveOptions]="{ exact: true}" 
     mat-button 
-    routerLink="/"
+    class="first-link" 
+    [routerLinkActiveOptions]="{ exact: true}" 
+    routerLink="/home"
+    routerLinkActive='is_active'
   >Home</a>
 
   <a 
     mat-button 
     routerLinkActive="active" 
-    routerLink="/admin" 
-    [disabled]="!(authService.hasPermissions$() | async)"
+    [routerLink]="(authService.isAdminAndLogged$() | async) ? '/admin' : null"
+    [routerLinkActive]="(authService.isAdminAndLogged$() | async) ? 'is_active' : 'is_disabled'"
+    [disabled]="!(authService.isAdminAndLogged$() | async)"
+    style="border: none;"
   >Admin</a>
 
+  <!-- In angular 13+ merge  -->
   <a 
     mat-button 
     routerLinkActive="active" 
     [routerLinkActiveOptions]="{ exact: true}" 
-    routerLink="/management" 
-    [disabled]="!(authService.isManager$() | async)"
+    [routerLink]="(authService.isManagerAndLogged$() | async) ? '/management' : null"
+    [routerLinkActive]="(authService.isManagerAndLogged$() | async) ? 'is_active' : 'is_disabled'"
+    [disabled]="!(authService.isManagerAndLogged$() | async)"
   >Management</a>
 
   <div style="
@@ -32,7 +36,7 @@
     font-size: 13px;
     column-gap: 10px;
   ">
-    <p>Role: {{authService.getUserRolesAsString()}}</p>
+    <!-- <p>rol$: {{authService.rol$ | async}}</p> -->
 
     <mat-form-field>
       <mat-select 
@@ -47,6 +51,13 @@
       </mat-select>
     </mat-form-field>
     
+    
+    <button
+      mat-button 
+      (click)="authService.isLoggedIn = !authService.isLoggedIn"
+    >
+      {{(authService.isLoggedIn$ | async) ? 'Logout' : 'Login'}}
+    </button>
   </div>
 </mat-toolbar>
 

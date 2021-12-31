@@ -14,14 +14,14 @@ export interface Food {
 })
 export class AppComponent {
   roles: string[] = [];
-  roleForm: FormControl = new FormControl(this.authService.getUserRolesAsString());
+  roleForm: FormControl = new FormControl(this.authService.rol);
 
   constructor(public authService: AuthService) {
     this.roles = this.authService.getAllRolesAsString();
   }
 
   setRole() {
-    this.authService.setRol(this.roleForm.value)
+    this.authService.rol = this.roleForm.value;
   }
 
 

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { delay, toArray } from 'rxjs/operators';
 
 export enum Roles {
   'USER',
   'ADMIN',
   'MANAGER',
+  'CUSTOMER',
+  'CLIENT',
   'TEST',
-  'TEST2'
 }
 
 @Injectable({
@@ -16,45 +16,49 @@ export enum Roles {
 export class AuthService {
   constructor() {}
 
-  private rol: BehaviorSubject<Roles[]> = new BehaviorSubject<Roles[]>([Roles.USER, Roles.ADMIN]);
-  public rol$: Observable<Roles[]> = this.rol.asObservable();
+  private _rol: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([Roles[Roles.USER], Roles[Roles.ADMIN]]);
+  public rol$: Observable<string[]> = this._rol.asObservable();
+
+  private _isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  public isLoggedIn$: Observable<boolean> = this._isLoggedIn.asObservable();
+
+  get rol(): string[] {
+    return this._rol.getValue();
+  }
+
+  set rol(rolesList: string[]) {
+    this._rol.next(rolesList);
+  }
+
+  get isLoggedIn(): boolean {
+    return this._isLoggedIn.getValue();
+  }
+
+  set isLoggedIn(value: boolean) {
+    this._isLoggedIn.next(value);
+  }
 
   getAllRolesAsString(): string[] {
     return Object.values(Roles).filter(value => typeof value === 'string') as string[];
   }
 
-  getUserRolesAsString(): string[] {
-    let array: string[] = [];
-
-    if (this.rol.getValue()) {
-      this.rol.getValue().forEach((e: number) => {
-        array.push(Roles[e]);
-      })
-    }
-
-    return array;
+  isAdmin$(): Observable<boolean> {
+    return of(this.rol.includes(Roles[Roles.ADMIN]));
   }
 
-  isLoggedIn$(value?: boolean): Observable<boolean> {
-    return of(true).pipe(delay(500));
+  isAdminAndLogged$(): Observable<boolean> {
+    return of(this.rol.includes(Roles[Roles.ADMIN]) && this.isLoggedIn);
   }
 
   isManager$(): Observable<boolean> {
-    return of(this.rol.getValue().includes(Roles.MANAGER));
+    return of(this.rol.includes(Roles[Roles.MANAGER]));
   }
 
-  hasPermissions$(): Observable<boolean> {
-    // return Observable base of JWT in LS and this.rol
-    return of(true);
+  isManagerAndLogged$(): Observable<boolean> {
+    return of(this.rol.includes(Roles[Roles.MANAGER]) && this.isLoggedIn);
   }
 
-  setRol(newRoles: Roles[]) {
-    var arrayOfNumbers: any[] = [];
-
-    newRoles.forEach((e: Roles) => {
-      arrayOfNumbers.push(Roles[e]);
-    });
-
-    this.rol.next(arrayOfNumbers);
+  loginOrLogout() {
   }
+
 }

@@ -8,3 +8,13 @@
 .active {
   border: white 1px solid;
 }
+
+.is_disabled {
+  cursor: default;
+  text-decoration: none;
+  border: none;
+}
+
+.is_active {
+  font-weight: bold !important;
+}

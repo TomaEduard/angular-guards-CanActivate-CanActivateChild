@@ -1,10 +1,15 @@
 <form [formGroup]="form">
   <h5>Add new Product</h5>
   <mat-form-field>
-    <input matInput name="any-name" placeholder="Name" formControlName="name">
+    <input matInput name="any-name" placeholder="Name" formControlName="name" />
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="Quantity" formControlName="quantity">
+    <input
+      matInput
+      type="number"
+      placeholder="Quantity"
+      formControlName="quantity"
+    />
   </mat-form-field>
   <button mat-raised-button (click)="form.reset()">Save</button>
 </form>

@@ -1,3 +1,4 @@
+import { LoadGuard } from './auth/load.guard';
 import { FormGuardGuard } from './auth/form-guard.guard';
 import { ManagementComponent } from './management/management.component';
 import { ListComponent } from './admin/list/list.component';
@@ -8,43 +9,31 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WelcomeComponent } from './admin/welcome/welcome.component';
 import { AuthenticationGuard } from './auth/authentication.guard';
+import { PermissionsGuardChild } from './auth/permissions.guard.child';
+import { Roles } from './auth/auth.service';
 import { PermissionsGuard } from './auth/permissions.guard';
-import { IsManagerGuard } from './auth/is-manager.guard';
 
 const routes: Routes = [
+  { 
+    path: 'home',
+    component: HomeComponent,
+  },
   {
     path: 'admin',
-    component: WelcomeComponent,
-    canActivate: [AuthenticationGuard],
-    children: [
-      {
-        path: '',
-        canActivateChild: [PermissionsGuard],
-        children: [
-          {
-            path: 'add-user',
-            canDeactivate: [FormGuardGuard],
-            component: AddUserComponent,
-          },
-          {
-            path: 'add-product',
-            canDeactivate: [FormGuardGuard],
-            component: AddProductComponent,
-          },
-          { path: 'list', component: ListComponent },
-        ],
-      },
-    ],
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canLoad: [LoadGuard],
+    data: {auth: [Roles[Roles.ADMIN]]},
   },
   {
     path: 'management',
     component: ManagementComponent,
-    canActivate: [IsManagerGuard],
+    // canActivate: [IsManagerGuard],
+    canActivate: [PermissionsGuard],
+    data: {auth: [Roles[Roles.MANAGER]]},
   },
-  {
-    path: '',
-    component: HomeComponent,
-  },
+
+
+  { path: '**', redirectTo: 'home'}
 ];
 
 @NgModule({

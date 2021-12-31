@@ -20,6 +20,7 @@ export class FormGuardGuard implements CanDeactivate<SafeData> {
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     console.log('CanDeactivate', )
+    
     if (!component.isDataSaved()) {
       const dialogRef = this.dialog.open(ConfirmDialogComponent);
       return dialogRef.afterClosed();
